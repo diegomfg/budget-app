@@ -1,22 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
+  background: #333;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.AppLogo {
+  color: #ccc;
+  font-size: 3.25rem;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+.BudgetApp {
+  padding: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.BudgetList {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 10rem;
 }
 
-.App-link {
-  color: #09d3ac;
+.Card {
+  margin: 1em;
+  color: #ccc;
+  background: linear-gradient(black, violet);
+  width: 20rem;
+  height: 30rem;
+}
+
+.Budget {
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .BudgetList {
+    align-items: center;
+    flex-direction: column;
+  }
 }
