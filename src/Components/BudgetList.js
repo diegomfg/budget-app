@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
-
+import Budget from "./Budget";
 const BudgetList = props => {
-  const [state, setState] = useState(null);
+  const [budgets, setBudgets] = useState(null);
 
   useEffect(() => {
-    setState(props.budgets);
-    if (state) {
-      console.log("BudgetList - ", state);
+    setBudgets(props.budgets);
+    if (budgets) {
+      console.log("BudgetList - ", budgets);
     }
-  }, [props.budgets, state]);
+  }, [props.budgets, budgets]);
 
   const MapBudgets = budgetList => {
-    return budgetList.map(budget => {
+    return budgetList.map((budget, index) => {
       return (
-        <section className="Card Budget" key={Math.random() * 26}>
-          <h1 className="Budget-Title">{budget.amount}</h1>
-          <p className="Budget-description">{budget.description}</p>
-        </section>
+        <Budget
+          className="Card Budget"
+          key={`budget-${index}`}
+          budget={budget}
+        />
       );
     });
   };
@@ -25,7 +26,7 @@ const BudgetList = props => {
     <>
       <div>
         <h1>Budget List</h1>
-        <div className="BudgetList">{state ? MapBudgets(state) : null}</div>
+        <div className="BudgetList">{budgets ? MapBudgets(budgets) : null}</div>
       </div>
     </>
   );

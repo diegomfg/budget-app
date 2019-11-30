@@ -1,16 +1,21 @@
-const { actions } = require("./Actions");
+const { actions } = require("./actions");
+const { fetchAllRecords, setAllRecords } = require("./wrapper");
 
-function counter(state = 0, action) {
+console.log(fetchAllRecords, setAllRecords);
+
+function budgets(state = {}, action) {
   switch (action.type) {
-    case actions.INCREMENT:
-      return action.offset ? state + action.offset : state + 1;
-    case actions.DECREMENT:
-      return action.offset ? state - action.offset : state - 1;
-    case actions.GET:
-      return "State is:" + state;
+    case actions.FETCH:
+      let budgets = fetchAllRecords();
+      return Object.assign({}, state, { budgets: budgets });
+    case actions.SET:
+      setAllRecords(action.records);
+      return Object.assign({}, state, {
+        budgets: JSON.parse(localStorage.getItem("budgets"))
+      });
     default:
       return state;
   }
 }
 
-module.exports = { counter };
+module.exports = { budgets };

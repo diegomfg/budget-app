@@ -1,15 +1,13 @@
 const { createStore } = require("redux");
-const { counter } = require("../Reducers");
+const { reducer } = require("../reducers");
+const { actions } = require("../actions");
 
-let store = createStore(counter);
+let store = createStore(reducer, { budgets: [] });
+
+store.dispatch({ type: actions.FETCH });
+store.dispatch({ type: actions.SET });
 
 store.subscribe(() => console.log(store.getState()));
-
-store.dispatch({ type: "INCREMENT", offset: 6 });
-store.dispatch({ type: "DECREMENT", offset: 2 });
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "GET" });
 
 /**
  * @abstract This is a dummy Redux script.

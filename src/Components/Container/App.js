@@ -1,48 +1,30 @@
 import React, { Component } from "react";
 import BudgetList from "../BudgetList";
 
-/**
- * @abstract This component should load and provide the store to the lower components
- */
-
 class BudgetApp extends Component {
   state = {};
 
-  componentDidMount() {
-    /**
-     * @todo Load items from local storage.
-     * @todo Set items to state and pass to store.
-     * @todo return budgets.length < 3 ? <CreateBudget/> : null
-     */
-    // return dispatch({"LOAD_DATA"});
-    this.loadData();
-  }
-
-  loadData = () => {
-    let budgets = JSON.parse(localStorage.getItem("devBudgets"));
-    // return dispatch({ type: "LOAD_DATA" });
-    this.setState({
-      budgets: budgets,
-      devBudgets: this.loadDevData()
-    });
+  componentDidMount = () => {
+    this.seedBudgets();
+    console.log(this.state);
   };
 
-  loadDevData = () => {
-    /**
-     * @abstract Seeds one reports to the LocalStorage. For development purposes only.
-     *
-     */
-    let budgets = [];
+  seedBudgets = () => {
+    let budgets = JSON.parse(localStorage.getItem("budgets"));
 
-    budgets.push(
-      { amount: 1000, description: "Dummy description - 1" },
-      { amount: 7500, description: "Dummy description - 2" },
-      { amount: 350, description: "Dummy description - 3" }
-    );
-    console.log("From Container, seeding records for development purposes");
-    localStorage.setItem("devBudgets", JSON.stringify(budgets));
+    if (!budgets || budgets === undefined) {
+      const budgets = [
+        { amount: 1000, description: "Dummy Budget" },
+        { amount: 1000, description: "Dummy Budget" },
+        { amount: 1000, description: "Dummy Budget" }
+      ];
 
-    return JSON.parse(localStorage.getItem("devBudgets"));
+      localStorage.setItem("budgets", JSON.stringify(budgets));
+
+      this.setState({ budgets: JSON.parse(localStorage.getItem("budgets")) });
+    }
+
+    this.setState({ budgets });
   };
 
   render() {
@@ -50,7 +32,7 @@ class BudgetApp extends Component {
       <>
         <div className="BudgetApp">
           <h1 className="AppLogo">Le Budget App</h1>
-          <BudgetList budgets={this.state.devBudgets} />
+          <BudgetList budgets={this.state.budgets} />
           {/* this.state.budgets.length < 3 ? <CreateBudget/> : null */}
         </div>
       </>

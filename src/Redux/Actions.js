@@ -1,8 +1,6 @@
 const actions = {
-  INCREMENT: "INCREMENT",
-  DECREMENT: "DECREMENT",
-  GET: "GET"
+  FETCH: "FETCH_RECORDS",
+  SET: "SET_RECORDS"
 };
 
 module.exports = { actions };
-
