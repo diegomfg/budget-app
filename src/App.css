@@ -4,6 +4,16 @@ body {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
 .App {
   background: #333;
   width: 100vw;
@@ -32,7 +42,7 @@ body {
 .Card {
   margin: 1em;
   color: #ccc;
-  background: linear-gradient(black, violet);
+  background: linear-gradient(rgba(0, 0, 0, 0.707), rgba(255, 1, 255, 0.541));
   width: 20rem;
   height: 30rem;
 }

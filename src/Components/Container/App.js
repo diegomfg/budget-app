@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import BudgetList from "../BudgetList";
+import { store } from "../../Redux/store";
+import { actions } from "../../Redux/actions";
+// import CreateBudget from "../CreateBudget";
+import { connect } from "react-redux";
+
+store.subscribe(() => {
+  console.log("Some action has been dispatched!", store.getState());
+});
 
 class BudgetApp extends Component {
   state = {};
 
   componentDidMount = () => {
-    this.seedBudgets();
-    console.log(this.state);
+    // this.seedBudgets();
+    console.log("Props from App.js inside <BudgetApp/>", this.props);
+  };
+
+  testRedux = () => {
+    store.dispatch({ type: actions.TEST });
   };
 
   seedBudgets = () => {
@@ -20,7 +32,9 @@ class BudgetApp extends Component {
       ];
 
       localStorage.setItem("budgets", JSON.stringify(budgets));
-
+      /**
+       * @TODO replace these setState to this.props.dispatch({type: Actions.setBudgets, budgets: budgets})
+       */
       this.setState({ budgets: JSON.parse(localStorage.getItem("budgets")) });
     }
 
@@ -32,12 +46,20 @@ class BudgetApp extends Component {
       <>
         <div className="BudgetApp">
           <h1 className="AppLogo">Le Budget App</h1>
-          <BudgetList budgets={this.state.budgets} />
-          {/* this.state.budgets.length < 3 ? <CreateBudget/> : null */}
+          <BudgetList />
+          <button onClick={this.testRedux}>Click me bro</button>
+          {/* if there are less than 5 budgets in the app, show <Link> to <CreateBudget/> */}
+          {/* {this.props.budgets ? null : <Link to="/create" component={CreateBudget}> <CreateBudget />} </Link>*/}
         </div>
       </>
     );
   }
 }
 
-export default BudgetApp;
+function mapStateToProps(state) {
+  return {
+    budgets: state.budgets
+  };
+}
+
+export default connect(mapStateToProps)(BudgetApp);

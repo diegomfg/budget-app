@@ -1,6 +1,7 @@
 const actions = {
-  FETCH: "FETCH_RECORDS",
-  SET: "SET_RECORDS"
+  FETCH_BUDGETS: "FETCH_BUDGETS",
+  SET_BUDGETS: "SET_BUDGETS",
+  TEST: "TEST"
 };
 
 module.exports = { actions };
