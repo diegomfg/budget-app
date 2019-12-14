@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import BudgetList from "../BudgetList";
 import { store } from "../../Redux/store";
 import { actions } from "../../Redux/actions";
-// import CreateBudget from "../CreateBudget";
+import CreateBudget from "../CreateBudget";
 import { connect } from "react-redux";
 
 store.subscribe(() => {
@@ -22,23 +22,23 @@ class BudgetApp extends Component {
   };
 
   seedBudgets = () => {
-    let budgets = JSON.parse(localStorage.getItem("budgets"));
+    store.dispatch({ type: actions.FETCH_BUDGETS });
 
-    if (!budgets || budgets === undefined) {
+    if (!this.props.budgets || this.props.budgets === undefined) {
       const budgets = [
         { amount: 1000, description: "Dummy Budget" },
         { amount: 1000, description: "Dummy Budget" },
         { amount: 1000, description: "Dummy Budget" }
       ];
 
-      localStorage.setItem("budgets", JSON.stringify(budgets));
       /**
-       * @TODO replace these setState to this.props.dispatch({type: Actions.setBudgets, budgets: budgets})
+       * @abstract This function checks if there are any budgets in the local storage.
+       *           If there are no budgets from the props, an action is dispatched and new dummy budgets are set.
        */
-      this.setState({ budgets: JSON.parse(localStorage.getItem("budgets")) });
+      store.dispatch({ type: actions.SET_BUDGETS, budgets: budgets })
+
     }
 
-    this.setState({ budgets });
   };
 
   render() {
@@ -49,7 +49,7 @@ class BudgetApp extends Component {
           <BudgetList />
           <button onClick={this.testRedux}>Click me bro</button>
           {/* if there are less than 5 budgets in the app, show <Link> to <CreateBudget/> */}
-          {/* {this.props.budgets ? null : <Link to="/create" component={CreateBudget}> <CreateBudget />} </Link>*/}
+          {this.props.budgets ? null : <Link to="/create" component={CreateBudget}> Create New Budget </Link>}
         </div>
       </>
     );
