@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import BudgetList from "../BudgetList";
 import { store } from "../../Redux/store";
-import { actions } from "../../Redux/actions";
+import { actions } from "../../Redux/Actions";
 import CreateBudget from "../CreateBudget";
 import { connect } from "react-redux";
 
@@ -49,7 +49,7 @@ class BudgetApp extends Component {
           <BudgetList />
           <button onClick={this.testRedux}>Click me bro</button>
           {/* if there are less than 5 budgets in the app, show <Link> to <CreateBudget/> */}
-          {this.props.budgets ? null : <Link to="/create" component={CreateBudget}> Create New Budget </Link>}
+          {this.props.budgets ? null : /*<Link to="/create" component={CreateBudget}> Create New Budget </Link>*/ <h1>Create Budgets!</h1>}
         </div>
       </>
     );

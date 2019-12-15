@@ -1,4 +1,4 @@
-const { actions } = require("./actions");
+const { actions } = require("./Actions");
 // const { fetchAllRecords, setAllRecords } = require("./wrapper");
 
 const initialState = {
