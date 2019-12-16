@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Budget from "./Budget";
 import { connect } from "react-redux";
 
 const BudgetList = props => {
-  useEffect(() => {
-    console.log(
-      "useEffect has activated at <BudgetList/>, props received: ",
-      props
-    );
-  });
-
   return (
     <>
       <div>

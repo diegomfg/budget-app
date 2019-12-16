@@ -7,8 +7,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import CreateBudget from "./Components/CreateBudget";
 import { store } from "./Redux/store";
 
-store.subscribe(() =>
-  console.log("From the higher App.js component: ", store.getState())
+store.subscribe(
+  () => {}
+  // console.log("From the higher App.js component: ", store.getState())
 );
 
 const routes = [

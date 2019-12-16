@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const BudgetSection = styled.section`
@@ -6,10 +6,6 @@ const BudgetSection = styled.section`
 `;
 
 const Budget = props => {
-  useEffect(() => {
-    console.log("Inside <Budget/>: ", props);
-  });
-
   return (
     <BudgetSection className="Card Budget">
       <h1 className="Budget-Title">{props.budget.amount}</h1>
