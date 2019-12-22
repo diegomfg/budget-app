@@ -8,7 +8,8 @@ const BudgetSection = styled.section`
 const Budget = props => {
   return (
     <BudgetSection className="Card Budget">
-      <h1 className="Budget-Title">{props.budget.amount}</h1>
+      <h1 className="Budget-title">{props.budget.title}</h1>
+      <h2 className="Budget-amount">{props.budget.amount}</h2>
       <p className="Budget-description">{props.budget.description}</p>
     </BudgetSection>
   );

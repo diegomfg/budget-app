@@ -1,37 +1,60 @@
 const { actions } = require("./actions");
-// const { fetchAllRecords, setAllRecords } = require("./wrapper");
 
 const initialState = {
-  budgets: [],
-  updated: false
+  budgets: []
 };
 
 function budgets(state = initialState, action) {
   switch (action.type) {
+    /**
+     * @api This action fetches the records from the local storage.
+     * @note If the records from the localStorage are not valid, 
+     *      the action will return a new empty array along with the original state.
+     */
     case actions.FETCH_BUDGETS:
-      /**
-       * @note Not sure if I can call a function inside a reducer's action.
-       */
-      // let budgets = fetchAllRecords();
 
-      let budgets = JSON.parse(localStorage.getItem("budgets"));
+     let budgets = JSON.parse(localStorage.getItem("budgets"));
+
+     if(!budgets){
+       return Object.assign({}, state, { budgets: [] })
+     }
 
       return Object.assign({}, state, { budgets: budgets });
 
-    case actions.SET_BUDGETS:
-      // setAllRecords(action.budgets);
-      if (action.budgets) {
-        localStorage.setItem("budgets", JSON.stringify(action.budgets));
-      }
-      return Object.assign({}, state, {
-        budgets: JSON.parse(localStorage.getItem("budgets"))
-      });
 
-    case actions.TEST:
-      // console.log(
-      //   "This is a test action, probably dispatched by a unit test launched in development mode. Dismiss this message."
-      // );
-      return Object.assign({}, state, { updated: !state.updated });
+
+      /**
+       * @api Saves one new record into the local storage
+       * @note Records from the localStorage are retrieved, if the object retrieved is {@literal null},
+       *       the object will be overwritten with the payload provided, 
+       *       and set to the localStorage to then be returned as state.
+       */
+
+    case actions.CREATE:
+      
+      if(action.payload.budget){
+
+        let budgets = JSON.parse(localStorage.getItem("budgets"));
+        
+        if(!budgets){
+
+          let budgets = [];
+
+          budgets.push(action.payload.budget)
+          
+          localStorage.setItem("budgets", JSON.stringify(budgets))
+
+          return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))})
+        }
+
+        budgets.push(action.payload.budget);
+
+        localStorage.setItem("budgets", JSON.stringify(budgets))
+
+      }
+
+      return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))});  
+
     default:
       return state;
   }

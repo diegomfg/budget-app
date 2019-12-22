@@ -1,22 +1,40 @@
 import React, { Component } from "react";
+import { actions } from '../Redux/actions'
+import { store } from '../Redux/store'
+import {connect} from 'react-redux';
 
 class CreateBudget extends Component {
+
+  componentDidMount = ()=>{
+    store.subscribe(()=>{
+      console.log("Received new props to <CreateBudget/> :", this.props);
+    })
+  }
+
   setAmount = e => {
-    console.log("Amount:", e.target.value);
     this.setState({ amount: e.target.value });
   };
 
-  setName = e => {
-    console.log("Name: ", e.target.value);
-    this.setState({ name: e.target.value });
+  setTitle = e => {
+    this.setState({ title: e.target.value });
   };
 
+  setDescription = (e)=>{
+    this.setState({ description: e.target.value });
+  }
+
   dispatchCreate = e => {
-    e.stopPropagation();
     e.preventDefault();
-    console.log("Form: ", e.target);
+    e.stopPropagation();
+
+    let newBudget = {title: this.state.title, amount: this.state.amount, description: this.state.description};
+
+    store.dispatch({type: actions.CREATE, payload: {budget: newBudget} })
   };
+
+  
   render() {
+
     return (
       <>
         <h1>Create new budget</h1>
@@ -25,7 +43,7 @@ class CreateBudget extends Component {
             type={"text"}
             name={"budget-title"}
             placeholder={"Title"}
-            onChange={this.setName}
+            onChange={this.setTitle}
           />
           <input
             type={"number"}
@@ -33,6 +51,12 @@ class CreateBudget extends Component {
             placeholder={"Starting Amount"}
             onChange={this.setAmount}
           />
+          <input type={"text"} 
+                 name={"budget-description"} 
+                 placeholder={"Description"} 
+                 onChange={this.setDescription}
+          />
+
           <button type={"submit"}>Create!</button>
         </form>
       </>
@@ -40,4 +64,8 @@ class CreateBudget extends Component {
   }
 }
 
-export default CreateBudget;
+function mapStateToProps(state){
+  return Object.assign({}, state);
+}
+
+export default connect(mapStateToProps)(CreateBudget);
