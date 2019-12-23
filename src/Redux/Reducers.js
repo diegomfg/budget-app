@@ -1,4 +1,5 @@
 const { actions } = require("./actions");
+const { fetchFromLocalStorage, saveToLocalStorage } = require('../utils/utils')
 
 const initialState = {
   budgets: []
@@ -13,15 +14,9 @@ function budgets(state = initialState, action) {
      */
     case actions.FETCH_BUDGETS:
 
-     let budgets = JSON.parse(localStorage.getItem("budgets"));
+      let budgets = fetchFromLocalStorage(state);
 
-     if(!budgets){
-       return Object.assign({}, state, { budgets: [] })
-     }
-
-      return Object.assign({}, state, { budgets: budgets });
-
-
+      return Object.assign({}, state, {budgets: budgets});
 
       /**
        * @api Saves one new record into the local storage
@@ -30,28 +25,14 @@ function budgets(state = initialState, action) {
        *       and set to the localStorage to then be returned as state.
        */
 
-    case actions.CREATE:
+   case actions.CREATE:
       
       if(action.payload.budget){
 
-        let budgets = JSON.parse(localStorage.getItem("budgets"));
-        
-        if(!budgets){
-
-          let budgets = [];
-
-          budgets.push(action.payload.budget)
-          
-          localStorage.setItem("budgets", JSON.stringify(budgets))
+           saveToLocalStorage(state, action.payload.budget);
 
           return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))})
         }
-
-        budgets.push(action.payload.budget);
-
-        localStorage.setItem("budgets", JSON.stringify(budgets))
-
-      }
 
       return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))});  
 

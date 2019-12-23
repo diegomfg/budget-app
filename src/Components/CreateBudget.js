@@ -7,7 +7,7 @@ class CreateBudget extends Component {
 
   componentDidMount = ()=>{
     store.subscribe(()=>{
-      console.log("Received new props to <CreateBudget/> :", this.props);
+      // console.log("Received new props to <CreateBudget/> :", this.props);
     })
   }
 

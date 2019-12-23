@@ -18,7 +18,7 @@ class BudgetApp extends Component {
 
     this.setState({budgets: []})
 
-    console.log("Props from App.js inside <BudgetApp/>", this.props);
+    // console.log("Props from App.js inside <BudgetApp/>", this.props);
   };
 
   render() {

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 const BudgetList = props => {
 
   useEffect(()=>{
-    console.log("useEffect at <BudgetList/>, props have changed: ", props)
+    // console.log("useEffect at <BudgetList/>, props have changed: ", props)
   }, [props, props.budgets])
 
 
