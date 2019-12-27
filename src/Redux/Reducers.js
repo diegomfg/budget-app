@@ -30,8 +30,7 @@ function budgets(state = initialState, action) {
       if(action.payload.budget){
 
            saveToLocalStorage(state, action.payload.budget);
-
-          return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))})
+           return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))});  
         }
 
       return Object.assign({}, state, {budgets: JSON.parse(localStorage.getItem("budgets"))});  
@@ -42,3 +41,4 @@ function budgets(state = initialState, action) {
 }
 
 module.exports = { budgets };
+

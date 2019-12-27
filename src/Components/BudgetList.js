@@ -24,7 +24,7 @@ const BudgetList = props => {
 const MapBudgets = budgetList => {
   return budgetList.map((budget, index) => {
     return (
-      <Budget className="Card Budget" key={`budget-${index}`} budget={budget} />
+      <Budget key={`budget-${index}`} budget={budget} />
     );
   });
 };

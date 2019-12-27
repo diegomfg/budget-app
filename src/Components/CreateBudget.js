@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { actions } from '../Redux/actions'
 import { store } from '../Redux/store'
 import {connect} from 'react-redux';
-
+import {Button} from '@material-ui/core';
 class CreateBudget extends Component {
 
-  componentDidMount = ()=>{
-    store.subscribe(()=>{
-      // console.log("Received new props to <CreateBudget/> :", this.props);
-    })
-  }
+  // componentDidMount = ()=>{
+  //   store.subscribe(()=>{
+  //     console.log("Received new props to <CreateBudget/> :", this.props);
+  //   })
+  // }
 
   setAmount = e => {
     this.setState({ amount: e.target.value });
@@ -57,7 +57,9 @@ class CreateBudget extends Component {
                  onChange={this.setDescription}
           />
 
-          <button type={"submit"}>Create!</button>
+        <Button variant="contained" color="primary" href="#contained-buttons">
+          Create
+        </Button>
         </form>
       </>
     );
